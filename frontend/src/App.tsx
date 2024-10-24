@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { format } from 'date-fns';
 
-import { Album, AlbumProps } from "./components/Album/Album";
+import { AlbumProps } from "./components/Album/Album";
+import { Month } from "./components/Month/Month";
 
 function App() {
   const [albums, setAlbums] = React.useState<Array<AlbumProps>>([]);
@@ -19,11 +21,23 @@ function App() {
     fetchAlbums();
   }, []);
 
+  const albumsPerMonth = albums.reduce((acc, album) => {
+    const month = format(new Date(album.calendar_date), "M");
+
+    if (!acc[month]) {
+      acc[month] = [];
+    }
+    acc[month].push(album);
+
+    return acc;
+  }
+  , {} as Record<string, AlbumProps[]>);
+
   return (
     <div>
-      {albums.map(album => (
-        <Album key={album.album_id} {...album}/>
-      ))}
+      {Array.from({length: 12}, (_, i) => i + 1).map((month) => {
+          return <Month key={month} month={month} albums={albumsPerMonth[month]} />
+      })}
     </div>
   );
 }

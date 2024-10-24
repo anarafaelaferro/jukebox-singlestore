@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import "./Album.scss";
 
 export type AlbumProps = {
-  calendar_date: string;
+  calendar_date: string | Date;
   album_id: number;
   album_name: string;
   artist_name: string;
@@ -12,17 +12,32 @@ export type AlbumProps = {
   recommender_name: string;
 };
 
-export function Album(album: AlbumProps) {  return (
+export function Album(album: AlbumProps) {
+  return (
     <a className="album" href={album.album_link} target="_blank" rel="noreferrer">
       <p className="details">
         <span className="date">
-          {format(new Date(album.calendar_date), "dd-MM-yyyy")}
+          {format(new Date(album.calendar_date), "dd")}
         </span>
         {album.album_name}, {album.artist_name}
       </p>
       <span className="recommender">
-        Recommended by {album.recommender_name}
+        from {album.recommender_name}
       </span>
     </a>
+  );
+}
+
+type AlbumEmptyStateProps = Pick<AlbumProps, "calendar_date">;
+
+export function AlbumEmptyState({ calendar_date }: AlbumEmptyStateProps) {
+  return (
+    <div className="album">
+      <p className="details">
+        <span className="date">
+          {format(new Date(calendar_date), "dd")}
+        </span>
+      </p>
+    </div>
   );
 }

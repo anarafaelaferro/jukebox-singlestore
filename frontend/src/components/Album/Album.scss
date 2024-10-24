@@ -1,12 +1,9 @@
 .album {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding-top: 18px;
-    padding-bottom: 16px;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 20px 24px;
     border-bottom: 1px solid #e0e0e0;
     color: #000;
     text-decoration: none;
@@ -15,14 +12,14 @@
         background-color: #fafafa;
     }
 
-    &:hover {
+    &[href]:hover {
         background-color: #f4f4f4;
     }
 
     .details {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 8px;
         margin: 0;
     }
 
@@ -32,5 +29,6 @@
 
     .recommender {
         color: #888;
+        font-size: 0.9em;
     }
 }

@@ -1,0 +1,11 @@
+.month {
+  h2 {
+    margin-left: 20px;
+    margin-top: 50px;
+  }
+
+  .month-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+}

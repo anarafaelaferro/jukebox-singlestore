@@ -19,7 +19,7 @@ async function createConnection() {
     password: PASSWORD,
     database: DATABASE,
     ssl: {
-      ca: fs.readFileSync("../singlestore_bundle.pem"),
+      ca: fs.readFileSync(`${process.cwd()}/backend/singlestore_bundle.pem`),
     },
   });
 }

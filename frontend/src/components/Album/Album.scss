@@ -1,8 +1,8 @@
 .album {
     display: flex;
-    gap: 16px;
+    flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
+    gap: 16px;
     padding: 20px 24px;
     border-bottom: 1px solid #e0e0e0;
     color: #000;
@@ -18,7 +18,7 @@
 
     .details {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 8px;
         margin: 0;
     }

@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       let connection;
       try {
         connection = await createConnection();
-        const [rows] = await connection.execute('SELECT * FROM album_calendar'); // Example query
+        const [rows] = await connection.execute('SELECT * FROM album_calendar ORDER BY calendar_date ASC'); // Example query
         res.status(200).json(rows);
       } catch (err) {
         console.error(err);

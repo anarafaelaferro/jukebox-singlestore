@@ -1,22 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 
-// Set the default base URL for all Axios requests
-axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
-
-type Album = {
-  album_id: number;
-  album_name: string;
-  artist_name: string;
-};
+import { Album, AlbumProps } from "./components/Album/Album";
 
 function App() {
-  const [albums, setAlbums] = React.useState<Array<Album>>([]);
+  const [albums, setAlbums] = React.useState<Array<AlbumProps>>([]);
 
   React.useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await axios.get<Array<Album>>('/api/albums');
+        const response = await axios.get<Array<AlbumProps>>('/api/albums');
         setAlbums(response.data);
       } catch (error) {
         console.error('Error fetching albums:', error);
@@ -28,12 +21,9 @@ function App() {
 
   return (
     <div>
-      <h1>Album List</h1>
-      <ul>
-        {albums.map(album => (
-          <li key={album.album_id}>{album.album_name}, {album.artist_name}</li>  // Adjust according to your data structure
-        ))}
-      </ul>
+      {albums.map(album => (
+        <Album key={album.album_id} {...album}/>
+      ))}
     </div>
   );
 }

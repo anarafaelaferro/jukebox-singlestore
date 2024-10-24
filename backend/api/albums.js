@@ -2,6 +2,7 @@ import mysql from 'mysql2/promise';
 import fs from 'fs';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
@@ -13,13 +14,15 @@ const DATABASE = process.env.DB_NAME;
 const corsMiddleware = cors(); // Create CORS middleware
 
 async function createConnection() {
+  const sslCertPath = path.join(__dirname, '../singlestore_bundle.pem');
+
   return await mysql.createConnection({
     host: HOST,
     user: USER,
     password: PASSWORD,
     database: DATABASE,
     ssl: {
-      ca: fs.readFileSync(`${process.cwd()}/backend/singlestore_bundle.pem`),
+      ca: fs.readFileSync(sslCertPath),
     },
   });
 }

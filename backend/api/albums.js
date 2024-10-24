@@ -1,6 +1,7 @@
 import mysql from 'mysql2/promise';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -13,6 +14,8 @@ const PORT = process.env.PORT || 3333;
 const corsMiddleware = cors(); // Create CORS middleware
 
 async function createConnection() {
+  const SSL_CERT = process.env.NODE_ENV === "production" ? Buffer.from(process.env.SSL_CERT, 'utf-8') : fs.readFileSync("./singlestore_bundle.pem");
+
   return await mysql.createConnection({
     host: HOST,
     user: USER,
@@ -20,7 +23,7 @@ async function createConnection() {
     database: DATABASE,
     port: PORT,
     ssl: {
-      ca: Buffer.from(process.env.SSL_CERT, 'utf-8'),
+      ca: SSL_CERT,
     },
   });
 }
@@ -30,9 +33,7 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
       let connection;
       try {
-        console.log('Creating connection');
         connection = await createConnection();
-        console.log('Connection created');
         const [rows] = await connection.execute('SELECT * FROM album_calendar'); // Example query
         res.status(200).json(rows);
       } catch (err) {

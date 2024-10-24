@@ -2,6 +2,7 @@ import mysql from 'mysql2/promise';
 import fs from 'fs';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
@@ -14,7 +15,10 @@ const PORT = process.env.PORT || 3333;
 const corsMiddleware = cors(); // Create CORS middleware
 
 async function createConnection() {
-  const SSL_CERT = await fs.readFileSync(process.cwd() + '/backend/singlestore_bundle.pem', 'utf8');
+  console.log("Current working directory:", process.cwd());
+
+  const sslCertPath2 = path.join(process.cwd() + '/backend/singlestore_bundle.pem');
+  console.log(sslCertPath2);
 
   return await mysql.createConnection({
     host: HOST,
@@ -23,7 +27,7 @@ async function createConnection() {
     database: DATABASE,
     port: PORT,
     ssl: {
-      ca: SSL_CERT,
+      ca: fs.readFileSync("/singlestore_bundle.pem"),
     },
   });
 }

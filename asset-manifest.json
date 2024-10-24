@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/jukebox-singlestore/static/css/main.3319ee95.css",
-    "main.js": "/jukebox-singlestore/static/js/main.c17283f2.js",
-    "static/js/453.84229565.chunk.js": "/jukebox-singlestore/static/js/453.84229565.chunk.js",
-    "index.html": "/jukebox-singlestore/index.html",
-    "main.3319ee95.css.map": "/jukebox-singlestore/static/css/main.3319ee95.css.map",
-    "main.c17283f2.js.map": "/jukebox-singlestore/static/js/main.c17283f2.js.map",
-    "453.84229565.chunk.js.map": "/jukebox-singlestore/static/js/453.84229565.chunk.js.map"
+    "main.css": "/static/css/main.3319ee95.css",
+    "main.js": "/static/js/main.b3a1618e.js",
+    "static/js/453.84229565.chunk.js": "/static/js/453.84229565.chunk.js",
+    "index.html": "/index.html",
+    "main.3319ee95.css.map": "/static/css/main.3319ee95.css.map",
+    "main.b3a1618e.js.map": "/static/js/main.b3a1618e.js.map",
+    "453.84229565.chunk.js.map": "/static/js/453.84229565.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3319ee95.css",
-    "static/js/main.c17283f2.js"
+    "static/js/main.b3a1618e.js"
   ]
 }

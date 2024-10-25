@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 
 import { AlbumProps } from "./components/Album/Album";
 import { Month } from "./components/Month/Month";
+import { BaseLayout } from "./layouts/BaseLayout";
 
 function App() {
   const [albums, setAlbums] = React.useState<Array<AlbumProps>>([]);
@@ -34,11 +35,11 @@ function App() {
   , {} as Record<string, AlbumProps[]>);
 
   return (
-    <div>
+    <BaseLayout>
       {Array.from({length: 12}, (_, i) => i + 1).map((month) => {
         return <Month key={month} month={month} albums={albumsPerMonth[month]} />
       })}
-    </div>
+    </BaseLayout>
   );
 }
 

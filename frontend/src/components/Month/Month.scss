@@ -2,7 +2,14 @@
   container-type: inline-size;
   max-width: 1800px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-bottom: 40px;
+
+  h2 {
+    color: var(--color-primary-300);
+    font-family: var(--font-family-serif);
+    font-weight: 700;
+    font-size: 50px;
+  }
 
   .month-grid {
     display: grid;

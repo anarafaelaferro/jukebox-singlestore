@@ -19,7 +19,12 @@ export function Album(album: AlbumProps) {
         <span className="date">
           {format(new Date(album.calendar_date), "dd")}
         </span>
-        {album.album_name}, {album.artist_name}
+        <p>
+          <b>{album.album_name}</b><br/>
+          <span className="artist">
+            {album.artist_name}
+          </span>
+        </p>
       </p>
       <span className="recommender">
         from {album.recommender_name}

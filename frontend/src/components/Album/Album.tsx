@@ -31,7 +31,6 @@ export function Album(album: AlbumProps) {
 type AlbumEmptyStateProps = Pick<AlbumProps, "calendar_date">;
 
 export function AlbumEmptyState({ calendar_date }: AlbumEmptyStateProps) {
-  console.log("AlbumEmptyState", calendar_date);
   return (
     <div className="album">
       <p className="details">

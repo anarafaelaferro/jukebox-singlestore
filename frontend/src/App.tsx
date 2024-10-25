@@ -22,9 +22,7 @@ function App() {
   }, []);
 
   const albumsPerMonth = albums.reduce((acc, album) => {
-    console.log("albums per month");
     const month = format(new Date(album.calendar_date), "M");
-    console.log(month, album.album_name);
 
     if (!acc[month]) {
       acc[month] = [];
@@ -38,7 +36,7 @@ function App() {
   return (
     <div>
       {Array.from({length: 12}, (_, i) => i + 1).map((month) => {
-          return <Month key={month} month={month.toString()} albums={albumsPerMonth[month]} />
+        return <Month key={month} month={month} albums={albumsPerMonth[month]} />
       })}
     </div>
   );

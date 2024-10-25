@@ -1,42 +1,85 @@
 .album {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 16px;
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--color-neutral-200);
+    padding: 0;
     color: var(--color-neutral-800);
     text-decoration: none;
 
-    &:nth-child(2n) {
-        background-color: #f6f6ff08;
+    &:hover {
+        background-color: #f6f6ff12;
+        transform: rotate(-5deg);
+         transform-style: preserve-3d;
+        transition: transform 0.2s ease-in-out;
+
+        .details, .date {
+          opacity: 1;
+          transition: opacity 0.2s ease-in-out;
+        }
     }
 
-    &[href]:hover {
-        background-color: #f6f6ff12;
+    img {
+        width: 100%;
+        height: auto;
     }
 
     .details {
+        opacity: 0;
+
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        align-items: center;
+        justify-content: center;
+      
+        position: absolute;
+        gap: 10px;
+        z-index: 1;
+        padding: 8px;
         margin: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        background: #1b1b2dd9;
+        backdrop-filter: blur(3px);
+        text-align: center;
+        box-sizing: border-box;
 
-        p {
-          margin: 0;
+        // prevents a thin line of image from appearing when the album is rotated
+        outline: 1px solid #1b1b2dd9;
+
+        .artist {
+          color: var(--color-neutral-700);
+        }
+
+        .recommender {
+            color: var(--color-neutral-500);
+            font-size: 0.8em;
         }
     }
 
     .date {
-        color: var(--color-neutral-500);
+        opacity: 0;
+        position: absolute;
+        z-index: 2;
+        font-family: var(--font-family-serif);
+        text-align: center;
+        font-size: 18px;
+        color: var(--color-neutral-900);
+        background-color: var(--color-primary-500);
+        border-radius: 50%;
+        line-height: 1.5;
+        width: 32px;
+        height: 32px;
+        transform: translate(-40%, -40%);
+        box-shadow: inset 0 0 10px var(--color-primary-100);
     }
 
-    .artist {
-      color: var(--color-neutral-700);
-    }
+}
 
-    .recommender {
-        color: var(--color-neutral-500);
-        font-size: 0.9em;
-    }
+.album-empty-state {
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-primary-100);
 }

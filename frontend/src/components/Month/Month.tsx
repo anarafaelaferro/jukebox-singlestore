@@ -30,7 +30,7 @@ export function Month({ month: _month, albums = []}: MonthProps) {
           const date = new Date(`2024-${month}-${getTwoDigits(day)}`);
           const album = albums.find((album) => isSameDay(new Date(album?.calendar_date), date));
 
-          return album ? <Album key={day} {...album} /> : <AlbumEmptyState key={day} calendar_date={date} />;
+          return album ? <Album key={day} {...album} /> : <AlbumEmptyState key={day} />;
         })}
       </div>
     </div>

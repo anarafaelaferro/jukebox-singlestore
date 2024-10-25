@@ -6,20 +6,20 @@ import { AlbumProps } from "./components/Album/Album";
 import { Month } from "./components/Month/Month";
 import { BaseLayout } from "./layouts/BaseLayout";
 
+import { fetchAlbums } from './api/albums';
+
 function App() {
   const [albums, setAlbums] = React.useState<Array<AlbumProps>>([]);
 
   React.useEffect(() => {
-    const fetchAlbums = async () => {
-      try {
-        const response = await axios.get<Array<AlbumProps>>('/api/albums');
-        setAlbums(response.data);
-      } catch (error) {
-        console.error('Error fetching albums:', error);
+    const getAlbums = async () => {
+      const response = await fetchAlbums();
+      if(response) {
+        setAlbums(response);
       }
     };
 
-    fetchAlbums();
+    getAlbums();
   }, []);
 
   const albumsPerMonth = albums.reduce((acc, album) => {

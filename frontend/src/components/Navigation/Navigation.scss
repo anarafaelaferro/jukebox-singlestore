@@ -1,0 +1,21 @@
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 45px;
+    color: #fff;
+
+    ul {
+      li {
+        list-style: none;
+
+        a {
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+}

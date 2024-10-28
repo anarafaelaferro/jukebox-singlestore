@@ -2,4 +2,5 @@
   background-color: #333;
   background-image: url(../static/images/background.png);
   padding: 50px 0;
+  min-height: calc(100vh - 100px); // minus padding top and bottom
 }

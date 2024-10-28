@@ -2,10 +2,16 @@ import React from "react";
 
 import "./BaseLayout.scss";
 
-export function BaseLayout({ children }: React.PropsWithChildren) {
+type BaseLayoutProps = {
+  className?: string;
+};
+
+export function BaseLayout({ className, children }: React.PropsWithChildren<BaseLayoutProps>) {
   return (
     <div className="base-layout">
-      {children}
+      <div className={className}>
+        {children}
+      </div>
     </div>
   );
 }

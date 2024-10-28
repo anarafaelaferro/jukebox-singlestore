@@ -7,11 +7,12 @@
     padding: 0;
     color: var(--color-neutral-800);
     text-decoration: none;
+    transition: transform 0.1s ease-in-out;
 
     &:hover {
         background-color: #f6f6ff12;
-        transform: rotate(-5deg);
-         transform-style: preserve-3d;
+        transform: rotate(-5deg) scale(1.1);
+        transform-style: preserve-3d;
         transition: transform 0.2s ease-in-out;
 
         .details, .date {
@@ -36,7 +37,7 @@
         position: absolute;
         gap: 10px;
         z-index: 1;
-        padding: 8px;
+        padding: 10px;
         margin: 0;
         width: 100%;
         max-width: 100%;
@@ -45,6 +46,7 @@
         backdrop-filter: blur(3px);
         text-align: center;
         box-sizing: border-box;
+        font-size: 14px;
 
         // prevents a thin line of image from appearing when the album is rotated
         outline: 1px solid #1b1b2dd9;

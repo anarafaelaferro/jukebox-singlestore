@@ -3,7 +3,11 @@
   max-width: 1800px;
   margin: 0 auto;
   margin-bottom: 40px;
-  padding: 0 20px;
+  padding: 0 24px;
+
+  @media (min-width: 750px) {
+    padding: 0 36px;
+  }
 
   h2 {
     color: var(--color-primary-200);
@@ -17,12 +21,13 @@
   .month-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 28px;
+    gap: 20px;
     align-items: center;
     justify-items: center;
 
     @container (min-width: 1250px) {
-        grid-template-columns: repeat(7, 1fr);
+      gap: 24px;
+      grid-template-columns: repeat(7, 1fr);
     }
   }
 }

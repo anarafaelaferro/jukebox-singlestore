@@ -16,9 +16,10 @@
         transform-style: preserve-3d;
         transition: transform 0.2s ease-in-out;
 
-        .details, .date {
-          opacity: 1;
-          transition: opacity 0.2s ease-in-out;
+        .details,
+        .date {
+            opacity: 1;
+            transition: opacity 0.2s ease-in-out;
         }
     }
 
@@ -34,7 +35,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-      
+
         position: absolute;
         gap: 10px;
         z-index: 1;
@@ -51,17 +52,17 @@
 
         // prevents a thin line of image from appearing when the album is rotated
         outline: 1px solid #1b1b2dd9;
-        
+
         @media (min-width: 1500px) {
-          font-size: 16px;
+            font-size: 16px;
         }
 
         @media (min-width: 1700px) {
-          font-size: 18px;
+            font-size: 18px;
         }
 
         .artist {
-          color: var(--color-neutral-700);
+            color: var(--color-neutral-700);
         }
 
         .recommender {
@@ -86,11 +87,10 @@
         transform: translate(-40%, -40%);
         box-shadow: inset 0 0 10px var(--color-primary-100);
     }
-
 }
 
 .album-empty-state {
-  width: 24px;
-  height: 24px;
-  background-color: var(--color-primary-100);
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-primary-100);
 }

@@ -6,16 +6,19 @@
     color: #fff;
 
     ul {
-      li {
-        list-style: none;
+        display: flex;
+        gap: 16px;
 
-        a {
-          text-decoration: none;
+        li {
+            list-style: none;
 
-          &:hover {
-            text-decoration: underline;
-          }
+            a {
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
-      }
     }
 }

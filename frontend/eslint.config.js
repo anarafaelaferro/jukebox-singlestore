@@ -28,6 +28,8 @@ module.exports = [
     },
     rules: {
       quotes: ["error", "double"], // Enforce double quotes
+      "react/jsx-curly-spacing": ["error", { when: "never" }],
+      "react/jsx-indent-props": ["error", 2],
     }
   }
 ];

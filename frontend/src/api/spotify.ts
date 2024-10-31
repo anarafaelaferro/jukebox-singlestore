@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+
 import { fetchAlbums } from "./albums";
 
 // Spotify API credentials

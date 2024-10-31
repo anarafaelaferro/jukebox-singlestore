@@ -1,11 +1,10 @@
 import React from "react";
 import { format } from "date-fns";
 
+import { fetchAlbums } from "../api/albums";
 import { AlbumProps } from "../components/Album/Album";
 import { Month } from "../components/Month/Month";
 import { BaseLayout } from "../layouts/BaseLayout";
-
-import { fetchAlbums } from "../api/albums";
 
 export function Homepage() {
     const [albums, setAlbums] = React.useState<Array<AlbumProps>>([]);

@@ -2,11 +2,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     padding: 30px 45px;
     color: #fff;
 
     ul {
         display: flex;
+        flex-wrap: wrap;
         gap: 16px;
 
         li {

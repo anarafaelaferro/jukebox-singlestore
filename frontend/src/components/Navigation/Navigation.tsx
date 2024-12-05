@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// import {  SignedOut, SignedIn, UserButton } from "@clerk/clerk-react";
 
 import logo from "../../static/images/logo-horizontal.svg";
 
@@ -18,6 +19,17 @@ export function Navigation() {
                 <li>
                     <Link to="/about">About</Link>
                 </li>
+                {/* <SignedOut>
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                    <li>
+                        <Link to="/singup">Create account</Link>
+                    </li>
+                </SignedOut>
+                <SignedIn>
+                    <li><UserButton /></li>
+                </SignedIn> */}
             </ul>
         </nav>
     );

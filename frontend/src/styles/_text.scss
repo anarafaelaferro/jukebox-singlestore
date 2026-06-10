@@ -1,3 +1,13 @@
+:root {
+    --text-low-contrast: var(--color-neutral-300);
+    --text-mid-contrast: var(--color-neutral-500);
+    --text-high-contrast: var(--color-neutral-700);
+
+    --text-brand-low-contrast: var(--color-primary-300);
+    --text-brand-mid-contrast: var(--color-primary-400);
+    --text-brand-high-contrast: var(--color-primary-500);
+}
+
 h1,
 h2,
 h3,
@@ -5,14 +15,15 @@ h4,
 h5,
 h6 {
     font-family: var(--font-family-serif);
-    color: var(--color-primary-500);
+    color: var(--text-brand-high-contrast);
 }
 
 p {
     font-family: var(--font-family-sans-serif);
-    color: var(--color-neutral-700);
+    color: var(--text-high-contrast);
 }
 
 a {
-    color: var(--color-primary-500);
+    color: var(--text-brand-high-contrast);
 }
+

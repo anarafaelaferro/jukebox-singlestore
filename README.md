@@ -1,70 +1,113 @@
-# Getting Started with Create React App
+# Jukebox
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A calendar of album recommendations with user profiles and a bilateral friends system. The frontend is a React app; the backend is Vercel serverless functions backed by SingleStore and Clerk.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+- Node.js 18+
+- [Vercel CLI](https://vercel.com/docs/cli) (`npm i -g vercel`)
+- SingleStore database credentials
+- Clerk application keys
 
-### `npm start`
+## Setup
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Install dependencies in both packages:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+cd backend && npm install
+cd ../frontend && npm install
+```
 
-### `npm test`
+### Environment variables
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Create `backend/.env`:
 
-### `npm run build`
+| Variable | Description |
+|----------|-------------|
+| `DB_HOST` | SingleStore host |
+| `DB_USER` | Database username |
+| `DB_PASSWORD` | Database password |
+| `DB_NAME` | Database name |
+| `PORT` | Database port (optional, defaults to `3333`) |
+| `CLERK_SECRET_KEY` | Clerk secret key |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Create `frontend/.env.local`:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Variable | Description |
+|----------|-------------|
+| `REACT_APP_VITE_CLERK_PUBLISHABLE_KEY` | Clerk publishable key |
+| `REACT_APP_API_BASE_URL` | Backend URL for local dev: `http://localhost:3000` |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Optional (Spotify cover art):
 
-### `npm run eject`
+| Variable | Description |
+|----------|-------------|
+| `REACT_APP_SPOTIFY_CLIENT_ID` | Spotify client ID |
+| `REACT_APP_SPOTIFY_CLIENT_SECRET` | Spotify client secret |
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Running locally
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Use two terminals. The backend must be started from the **repo root** (the Vercel project root directory is `backend`, so running `vercel dev` inside `backend/` will fail).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Terminal 1 — Backend (port 3000)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd jukebox-singlestore
+vercel dev
+```
 
-## Learn More
+API available at `http://localhost:3000/api/*`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Quick check:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+curl http://localhost:3000/api/albums
+```
 
-### Code Splitting
+### Terminal 2 — Frontend (port 3001)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+cd jukebox-singlestore/frontend
+npm start
+```
 
-### Analyzing the Bundle Size
+App available at [http://localhost:3001](http://localhost:3001).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+Browser (localhost:3001)
+       ↓ axios
+API (localhost:3000/api/*)
+       ↓
+SingleStore + Clerk
+```
 
-### Making a Progressive Web App
+### Troubleshooting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+| Issue | Fix |
+|-------|-----|
+| `backend/backend doesn't exist` | Run `vercel dev` from the repo root, not from `backend/` |
+| Port 3000 in use | Stop the other process, or run `vercel dev --listen 3002` and update `REACT_APP_API_BASE_URL` |
+| API calls fail from the browser | Ensure `REACT_APP_API_BASE_URL` points to the port where `vercel dev` is running |
+| Clerk webhooks (user signup sync) | Expose port 3000 with ngrok and point Clerk at `/api/webhooks` |
 
-### Advanced Configuration
+Example ngrok:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+ngrok http 3000
+```
 
-### Deployment
+## Frontend scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+From `frontend/`:
 
-### `npm run build` fails to minify
+| Command | Description |
+|---------|-------------|
+| `npm start` | Dev server on port 3001 |
+| `npm run build` | Production build |
+| `npm run deploy` | Deploy to GitHub Pages |
+| `npm run lint` | Run ESLint |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Production
+
+- **Frontend:** deployed to [jukebox.rafaelaferro.com](http://jukebox.rafaelaferro.com/) via GitHub Pages
+- **Backend:** deployed on Vercel (`backend/` as the project root)

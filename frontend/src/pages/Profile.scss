@@ -1,0 +1,32 @@
+.profile-page {
+  .header {
+    display: grid;
+    gap: var(--size-m);
+    align-items: start;
+    grid-template-columns: max-content 1fr;
+    margin-top: var(--size-l);
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      background-color: var(--color-primary-200);
+    }
+
+    .username {
+      display: flex;
+      gap: var(--size-xs);
+      align-items: end;
+
+      h1 {
+        line-height: 1;
+      }
+    }
+
+    .stats {
+      display: grid;
+      gap: var(--size-xxs);
+      margin-top: var(--size-s);
+      margin-bottom: var(--size-s);
+    }
+  }
+}

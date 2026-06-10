@@ -1,0 +1,17 @@
+.footer-component {
+  display: flex;
+  gap: var(--size-s);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  line-height: 1;
+
+  a {
+    text-decoration: none;
+    margin: 5px 0;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+}

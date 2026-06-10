@@ -1,0 +1,11 @@
+.tag-component {
+    display: inline-block;
+    font-family: var(--font-family-sans-serif);
+    background-color: var(--color-neutral-200);
+    color: var(--color-neutral-800);
+    padding: 6px 8px;
+    margin: 0 2px;
+    border-radius: var(--radius-m);
+    font-size: 16px;
+    font-weight: 500;
+}

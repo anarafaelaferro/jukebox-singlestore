@@ -13,7 +13,7 @@ export function Login() {
                 <title>Login Jukebox</title>
             </Helmet>
 
-            <SignIn />
+            <SignIn signUpUrl="/sign-up" />
 
         </BaseLayout>
     );

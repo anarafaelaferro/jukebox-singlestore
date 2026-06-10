@@ -13,7 +13,7 @@ export function Signup() {
                 <title>Create Jukebox account</title>
             </Helmet>
 
-            <SignUp />
+            <SignUp signInUrl="/login" />
 
         </BaseLayout>
     );

@@ -1,39 +1,56 @@
-import pkg from '@clerk/nextjs/server';
-const { WebhookEvent } = pkg;
-import { createConnection } from '../../utils/db.js';
+import { getConnection } from '../../utils/db.js';
 import cors from 'cors';
+import axios from 'axios';
 
 const corsMiddleware = cors();
-const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
-export default async function handler(req, res) {
+export async function createUser(req, res) {
   corsMiddleware(req, res, async () => {
     if (req.method === 'POST') {
       let connection;
       try {
-        const payload = req.body;
-        const signature = req.headers['clerk-signature'];
+        const { id: clerkUserId } = req.body.data;
 
-        // Verify the webhook payload
-        const verifiedPayload = WebhookEvent.verify({ payload, secret: WEBHOOK_SECRET, signature });
-        const { id: clerkUserId } = verifiedPayload;
+        if (!clerkUserId) {
+          res.status(400).json({ error: 'clerkUserId is required' });
+          return;
+        }
 
         // Connect to the database
-        connection = await createConnection();
+        connection = await getConnection();
 
-        // Insert or update user in the database
+        // Insert user into the database
         await connection.execute(
-          'INSERT INTO users (clerk_user_id) VALUES (?) ON DUPLICATE KEY UPDATE clerk_user_id = VALUES(clerk_user_id)',
+          `INSERT INTO users (clerk_user_id) 
+            VALUES (?) 
+            ON DUPLICATE KEY UPDATE clerk_user_id = VALUES(clerk_user_id)`,
+          [clerkUserId]
+        );
+        
+        const [rows] = await connection.execute(
+          `SELECT id FROM users WHERE clerk_user_id = ?`,
           [clerkUserId]
         );
 
-        res.status(200).send('User saved successfully');
+        const singlestoreId = rows?.[0]?.id;
+        
+        // set externalId in clerk
+        await axios.patch(`https://api.clerk.dev/v1/users/${clerkUserId}`, {
+          external_id: String(singlestoreId),
+        }, {
+          headers: {
+            Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`, // API key stored in environment variables
+            'Content-Type': 'application/json',
+          },
+        });
+
+        res.status(200).json({ message: 'User inserted/updated successfully' });
       } catch (err) {
-        console.error('Error handling webhook:', err);
+        console.error('Error inserting user:', err);
         res.status(500).send('Server error');
       } finally {
         if (connection) {
-          await connection.end();
+          connection.release();
         }
       }
     } else {

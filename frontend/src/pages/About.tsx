@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 import { BaseLayout } from "../layouts/BaseLayout";
 
@@ -7,6 +8,10 @@ import "./About.scss";
 export function About() {
     return (
         <BaseLayout className="page-about">
+            <Helmet>
+                <title>About Jukebox</title>
+            </Helmet>
+
             <h1>About Jukebox</h1>
             <p>
                 Jukebox is a calendar made from a collection of several people’s

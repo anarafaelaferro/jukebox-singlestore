@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Navigation } from "../components/Navigation/Navigation";
+import { Footer } from "../components/Footer/Footer";
 
 import "./BaseLayout.scss";
 
@@ -15,7 +17,9 @@ export function BaseLayout({
         <div className="base-layout">
             <Navigation />
 
-            <div className={className}>{children}</div>
+            <main className={className}>{children}</main>
+
+            <Footer />
         </div>
     );
 }

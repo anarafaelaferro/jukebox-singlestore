@@ -2,11 +2,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     padding: 30px 45px;
     color: #fff;
 
     ul {
         display: flex;
+        flex-wrap: wrap;
+        align-items: center;
         gap: 16px;
 
         li {
@@ -19,6 +22,19 @@
                     text-decoration: underline;
                 }
             }
+        }
+    }
+
+    // customize Clerk user button
+    .cl-userButton-root {
+        border-radius: var(--radius-xxs);
+        border: 2px solid var(--color-neutral-100);
+        padding: var(--size-xs);
+
+        .cl-userButtonOuterIdentifier {
+            color: var(--text-high-contrast);
+            font-weight: 500;
+            font-size: 15px;
         }
     }
 }

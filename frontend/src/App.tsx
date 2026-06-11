@@ -6,9 +6,8 @@ import { ClerkProvider, useAuth } from "@clerk/clerk-react";
 import { About } from "./pages/About";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
-import { FriendsTab } from "./pages/Friends";
-import { ProfileTab } from "./pages/Profile";
-import { ProfileLayout } from "./layouts/ProfileLayout";
+import { FriendsPage } from "./pages/Friends";
+import { ProfilePage } from "./pages/Profile";
 import { Homepage } from "./pages/Homepage";
 
 function AuthSetup() {
@@ -61,10 +60,8 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<Signup />} />
 
-                <Route path="/:username" element={<ProfileLayout />}>
-                    <Route index element={<ProfileTab />} />
-                    <Route path="friends" element={<FriendsTab />} />
-                </Route>
+                <Route path="/:username/friends" element={<FriendsPage />} />
+                <Route path="/:username" element={<ProfilePage />} />
             </Routes>
         </ClerkProvider>
     );

@@ -1,32 +1,45 @@
 .profile-page {
-  .header {
-    display: grid;
-    gap: var(--size-m);
-    align-items: start;
-    grid-template-columns: max-content 1fr;
-    margin-top: var(--size-l);
+  .profile-content {
+    margin-top: var(--size-m);
+    margin-bottom: var(--size-l);
+  }
 
-    .profile-image {
-      width: 150px;
-      height: 150px;
-      background-color: var(--color-primary-200);
-    }
+  .coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-s);
+    min-height: 280px;
+    padding: var(--size-l) var(--size-m);
+    text-align: center;
+    border: 1px dashed var(--color-neutral-300);
+    border-radius: var(--radius-m);
+    background-color: var(--color-neutral-100);
 
-    .username {
-      display: flex;
+    &__icon {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: var(--size-xs);
-      align-items: end;
+      margin-bottom: var(--size-xs);
 
-      h1 {
-        line-height: 1;
+      span {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-xs);
+        background-color: var(--color-primary-200);
+        opacity: 0.6;
       }
     }
 
-    .stats {
-      display: grid;
-      gap: var(--size-xxs);
-      margin-top: var(--size-s);
-      margin-bottom: var(--size-s);
+    &__title {
+      margin: 0;
+    }
+
+    &__description {
+      max-width: 36ch;
+      margin: 0;
+      line-height: 1.5;
     }
   }
 }

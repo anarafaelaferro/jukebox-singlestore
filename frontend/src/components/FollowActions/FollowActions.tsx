@@ -32,6 +32,7 @@ export function FollowActions({
   const [followStatus, setFollowStatus] = React.useState(initialFollowStatus);
   const [initiatorUserId, setInitiatorUserId] = React.useState<string | null>(null);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const [isConfirmingRemove, setIsConfirmingRemove] = React.useState(false);
 
   const fetchFollowStatus = React.useCallback(async () => {
     if (!currentUserId || !otherUserId) {
@@ -52,6 +53,12 @@ export function FollowActions({
   React.useEffect(() => {
     fetchFollowStatus();
   }, [fetchFollowStatus]);
+
+  React.useEffect(() => {
+    if (followStatus !== "accepted") {
+      setIsConfirmingRemove(false);
+    }
+  }, [followStatus]);
 
   const runAction = async (action: () => Promise<unknown>) => {
     setErrorMessage(null);
@@ -136,19 +143,15 @@ export function FollowActions({
       });
     });
 
-  const handleRemoveFriend = () => {
-    if (!window.confirm("Are you sure you want to remove this friend?")) {
-      return;
-    }
-
+  const handleRemoveFriend = () =>
     runAction(async () => {
       setFollowStatus("none");
+      setIsConfirmingRemove(false);
       await rejectFollowRequest({
         followerUserId: currentUserId!,
         followeeUserId: otherUserId,
       });
     });
-  };
 
   return (
     <div className="follow-actions-component">
@@ -178,9 +181,39 @@ export function FollowActions({
       )}
 
       {followStatus === "accepted" && (
-        <Button onClick={handleRemoveFriend} disabled={isLoading} variant="outline-neutral">
-          Remove friend
-        </Button>
+        isConfirmingRemove ? (
+          <div className="follow-actions-component__confirm">
+            <Paragraph className="follow-actions-component__confirm-label" variant="body-2">
+              Remove friend?
+            </Paragraph>
+            <div className="follow-actions-component__confirm-actions">
+              <Button
+                onClick={handleRemoveFriend}
+                disabled={isLoading}
+                variant="solid-neutral"
+                size="small"
+              >
+                Yes, remove
+              </Button>
+              <Button
+                onClick={() => setIsConfirmingRemove(false)}
+                disabled={isLoading}
+                variant="outline-neutral"
+                size="small"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <Button
+            onClick={() => setIsConfirmingRemove(true)}
+            disabled={isLoading}
+            variant="outline-neutral"
+          >
+            Remove friend
+          </Button>
+        )
       )}
     </div>
   );

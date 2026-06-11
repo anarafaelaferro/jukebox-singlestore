@@ -109,5 +109,41 @@ From `frontend/`:
 
 ## Production
 
-- **Frontend:** deployed to [jukebox.rafaelaferro.com](http://jukebox.rafaelaferro.com/) via GitHub Pages
-- **Backend:** deployed on Vercel (`backend/` as the project root)
+- **Frontend:** [jukebox.rafaelaferro.com](http://jukebox.rafaelaferro.com/) via GitHub Pages
+- **Backend:** Vercel serverless functions (`backend/` as the project root)
+
+### Automated deploy (CI)
+
+Pushing to `main` triggers [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
+
+| Change in | Deploys |
+|-----------|---------|
+| `frontend/**` | GitHub Pages (build → `gh-pages` branch) |
+| `backend/**` | Vercel production |
+| Manual | Both (Actions → **Deploy** → **Run workflow**) |
+
+#### GitHub secrets
+
+Add these under **Settings → Secrets and variables → Actions**:
+
+| Secret | Used by |
+|--------|---------|
+| `VERCEL_TOKEN` | Backend — [Vercel account token](https://vercel.com/account/tokens) |
+| `VERCEL_ORG_ID` | Backend — team ID from `.vercel/project.json` (`orgId`) |
+| `VERCEL_PROJECT_ID` | Backend — project ID from `.vercel/project.json` (`projectId`) |
+| `REACT_APP_VITE_CLERK_PUBLISHABLE_KEY` | Frontend build |
+| `REACT_APP_API_BASE_URL` | Frontend build — production Vercel API URL (e.g. `https://your-project.vercel.app`) |
+| `REACT_APP_SPOTIFY_CLIENT_ID` | Frontend build (optional) |
+| `REACT_APP_SPOTIFY_CLIENT_SECRET` | Frontend build (optional) |
+
+GitHub Pages must be configured to deploy from the **`gh-pages` branch** (root). The custom domain `jukebox.rafaelaferro.com` stays as-is.
+
+#### Manual deploy (local)
+
+```bash
+# Backend (from repo root)
+vercel --prod
+
+# Frontend
+cd frontend && npm run deploy
+```
